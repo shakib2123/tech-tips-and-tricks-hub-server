@@ -1,10 +1,9 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
-import router from "./routes";
-import globalErrorHandler from "./middlewares/globalErrorHandler";
-import notFound from "./middlewares/notFound";
+import router from "./app/routes";
+import globalErrorHandler from "./app/middlewares/globalErrorHandler";
+import notFound from "./app/middlewares/notFound";
 
 //Create the Express.js application
 const app = express();

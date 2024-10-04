@@ -1,5 +1,5 @@
 import { ErrorRequestHandler } from "express";
-import { ZodError, ZodIssue } from "zod";
+import { ZodError } from "zod";
 
 import AppError from "../errors/AppError";
 import { TErrorSources } from "../interface/error";

@@ -63,6 +63,7 @@ const resetPasswordValidationSchema = z.object({
 });
 
 export const AuthValidations = {
+  registerUserValidationSchema,
   loginUserValidationSchema,
   forgetPasswordValidationSchema,
   resetPasswordValidationSchema,
