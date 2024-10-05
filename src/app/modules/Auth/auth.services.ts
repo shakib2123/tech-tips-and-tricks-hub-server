@@ -62,7 +62,7 @@ const loginUser = async (payload: TLoginUser) => {
   );
 
   if (!passwordMatch) {
-    throw new Error("Password not matched");
+    throw new AppError(httpStatus.BAD_REQUEST, "Password not matched");
   }
 
   const jwtPayload = {
@@ -88,6 +88,7 @@ const loginUser = async (payload: TLoginUser) => {
   );
 
   const { password, ...userData } = user.toObject();
+  console.log();
   return { user: userData, accessToken, refreshToken };
 };
 
