@@ -6,6 +6,10 @@ export type TUser = {
   mobileNumber: string;
   profilePhoto: string;
   isVerified: boolean;
+  coverPhoto: string;
+  location: string;
+  bio: string;
+  website: string;
   followers: string[];
   following: string[];
   premiumSubscription: {
