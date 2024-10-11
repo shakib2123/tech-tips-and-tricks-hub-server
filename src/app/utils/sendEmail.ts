@@ -24,7 +24,7 @@ export const sendEmail = async (to: string, resetLink: string) => {
           We received a request to reset your password. Click the button below to reset it:
         </p>
         <div style="text-align: center; margin: 30px 0;">
-          <a href="${resetLink}" style="background-color: #f97316; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 16px;">
+          <a href="${resetLink}" style="background-color: #2196F3; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 16px;">
             Reset Your Password
           </a>
         </div>

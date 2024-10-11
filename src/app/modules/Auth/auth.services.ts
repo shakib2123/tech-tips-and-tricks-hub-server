@@ -92,7 +92,7 @@ const loginUser = async (payload: TLoginUser) => {
   return { user: userData, accessToken, refreshToken };
 };
 
-const forgetPassword = async (email: string) => {
+const changePassword = async (email: string) => {
   const user = await User.findOne({ email });
 
   if (!user) {
@@ -100,10 +100,10 @@ const forgetPassword = async (email: string) => {
   }
 
   // check if the  user is deleted
-  const isDeleted = user?.isDeleted;
-  if (isDeleted) {
-    throw new AppError(httpStatus.FORBIDDEN, "This user is deleted");
-  }
+  // const isDeleted = user?.isDeleted;
+  // if (isDeleted) {
+  //   throw new AppError(httpStatus.FORBIDDEN, "This user is deleted");
+  // }
 
   const jwtPayload = {
     userId: user.id,
@@ -119,12 +119,11 @@ const forgetPassword = async (email: string) => {
 };
 
 const resetPassword = async (payload: {
-  email: string;
   id: string;
   newPassword: string;
   token: string;
 }) => {
-  const user = await User.findOne({ email: payload.email });
+  const user = await User.findOne({ _id: payload.id });
 
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "This user is not found !");
@@ -159,6 +158,6 @@ const resetPassword = async (payload: {
 export const AuthServices = {
   registerUser,
   loginUser,
-  forgetPassword,
+  changePassword,
   resetPassword,
 };

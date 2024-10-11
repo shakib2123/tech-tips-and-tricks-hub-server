@@ -7,7 +7,7 @@ import { UserValidations } from "./user.validation";
 
 const router = Router();
 
-router.get("/:email", auth(USER_ROLES.USER), UserController.getCurrentUser);
+router.get("/user-data", auth(USER_ROLES.USER), UserController.getCurrentUser);
 
 router.patch(
   "/:email",

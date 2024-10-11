@@ -28,10 +28,10 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const forgetPassword = catchAsync(async (req, res) => {
+const changePassword = catchAsync(async (req, res) => {
   const email = req.body.email;
 
-  const result = await AuthServices.forgetPassword(email);
+  const result = await AuthServices.changePassword(email);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -40,9 +40,10 @@ const forgetPassword = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
 const resetPassword = catchAsync(async (req, res) => {
-  const result = await AuthServices.resetPassword(req.body);
+  const userData = req.body;
+
+  const result = await AuthServices.resetPassword(userData);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -55,6 +56,6 @@ const resetPassword = catchAsync(async (req, res) => {
 export const AuthController = {
   registerUser,
   loginUser,
-  forgetPassword,
+  changePassword,
   resetPassword,
 };

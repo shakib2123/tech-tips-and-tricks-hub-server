@@ -15,7 +15,4 @@ export default {
   stripe_secret_key: process.env.STRIPE_SECRET_KEY,
   payment_success_url: process.env.PAYMENT_SUCCESS_URL,
   payment_cancel_url: process.env.PAYMENT_CANCEL_URL,
-  cloudinary_cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  cloudinary_api_key: process.env.CLOUDINARY_API_KEY,
-  cloudinary_api_secret: process.env.CLOUDINARY_API_SECRET,
 };
