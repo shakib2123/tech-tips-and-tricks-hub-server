@@ -1,6 +1,6 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 
-import { USER_ROLE } from "../modules/User/user.constant";
+import { USER_ROLES } from "../modules/User/user.constant";
 import AppError from "../errors/AppError";
 import httpStatus from "http-status";
 
@@ -9,10 +9,7 @@ export const createToken = (
     _id?: string;
     name: string;
     email: string;
-    mobileNumber?: string;
-    role: keyof typeof USER_ROLE;
-    isVerified: boolean;
-    profilePhoto?: string;
+    role: keyof typeof USER_ROLES;
   },
   secret: string,
   expiresIn: string

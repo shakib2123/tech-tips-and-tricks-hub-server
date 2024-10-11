@@ -25,10 +25,7 @@ const registerUser = async (payload: TUser) => {
     _id: result._id.toString(),
     name: result.name,
     email: result.email,
-    mobileNumber: result.mobileNumber,
     role: result.role,
-    isVerified: result.isVerified,
-    profilePhoto: result.profilePhoto,
   };
 
   const accessToken = createToken(
@@ -69,10 +66,7 @@ const loginUser = async (payload: TLoginUser) => {
     _id: user._id.toString(),
     name: user.name,
     email: user.email,
-    mobileNumber: user.mobileNumber,
     role: user.role,
-    isVerified: user.isVerified,
-    profilePhoto: user.profilePhoto,
   };
 
   const accessToken = createToken(
@@ -98,12 +92,6 @@ const changePassword = async (email: string) => {
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "This user is not found !");
   }
-
-  // check if the  user is deleted
-  // const isDeleted = user?.isDeleted;
-  // if (isDeleted) {
-  //   throw new AppError(httpStatus.FORBIDDEN, "This user is deleted");
-  // }
 
   const jwtPayload = {
     userId: user.id,
