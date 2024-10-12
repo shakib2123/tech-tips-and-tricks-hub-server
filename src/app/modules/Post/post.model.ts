@@ -9,8 +9,8 @@ const postSchema = new Schema<TPost>(
     images: { type: [String], required: true },
     isPremium: { type: Boolean, required: true },
     category: { type: String, required: true },
-    upvote: { type: Number, default: 0 },
-    downvote: { type: Number, default: 0 },
+    upvote: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    downvote: [{ type: Schema.Types.ObjectId, ref: "User" }],
     isDeleted: { type: Boolean, default: false },
   },
   {

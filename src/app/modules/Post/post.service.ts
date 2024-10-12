@@ -1,3 +1,4 @@
+import { assign } from "nodemailer/lib/shared";
 import { Post } from "./post.model";
 
 const createPostIntoDB = async (payload: Record<string, unknown>) => {
@@ -5,12 +6,59 @@ const createPostIntoDB = async (payload: Record<string, unknown>) => {
   return result;
 };
 
-const getMyPostsFromDB = (email: string) => {
-  const result = Post.find({ userEmail: email }).populate("userId");
+const getMyPostsFromDB = async (email: string) => {
+  const result = await Post.find({ userEmail: email }).populate("userId");
+  return result;
+};
+const getPostFromDB = async (id: string) => {
+  const result = await Post.findById(id).populate("userId");
   return result;
 };
 
+const updateVoteIntoDB = async (payload: Record<string, string>) => {
+  if (payload.voteType === "downvote") {
+    const post = await Post.findOne({ _id: payload.postId });
+    if (post!.downvote.includes(payload?.userId)) {
+      // User has already downvoted, so we remove the downvote
+      const result = await Post.findOneAndUpdate(
+        { _id: payload.postId },
+        { $pull: { downvote: payload.userId } },
+        { new: true }
+      );
+      return result;
+    } else {
+      // User has not downvoted yet, so we add the downvote
+      const result = await Post.findOneAndUpdate(
+        { _id: payload.postId },
+        { $addToSet: { downvote: payload.userId } },
+        { new: true }
+      );
+      return result;
+    }
+  } else if (payload.voteType === "upvote") {
+    const post = await Post.findOne({ _id: payload.postId });
+    if (post!.upvote.includes(payload.userId)) {
+      // User has already upvoted, so we remove the upvote
+      const result = await Post.findOneAndUpdate(
+        { _id: payload.postId },
+        { $pull: { upvote: payload.userId } },
+        { new: true }
+      );
+      return result;
+    } else {
+      // User has not upvoted yet, so we add the upvote
+      const result = await Post.findOneAndUpdate(
+        { _id: payload.postId },
+        { $addToSet: { upvote: payload.userId } },
+        { new: true }
+      );
+      return result;
+    }
+  }
+};
 export const PostServices = {
   createPostIntoDB,
   getMyPostsFromDB,
+  getPostFromDB,
+  updateVoteIntoDB,
 };

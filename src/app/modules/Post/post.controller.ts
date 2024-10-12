@@ -26,8 +26,35 @@ const getMyPosts = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const getPost = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  console.log("id", id);
+  const result = await PostServices.getPostFromDB(id);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Post retrieved successfully",
+    data: result,
+  });
+});
+
+const updateVote = catchAsync(async (req: Request, res: Response) => {
+  const voteData = req.body;
+  console.log("voteData", voteData);
+
+  const result = await PostServices.updateVoteIntoDB(voteData);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Voted successfully",
+    data: result,
+  });
+});
 
 export const PostController = {
   createPost,
   getMyPosts,
+  getPost,
+  updateVote,
 };

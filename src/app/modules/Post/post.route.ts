@@ -14,6 +14,14 @@ router.post(
   PostController.createPost
 );
 
-router.get("/:email", auth(USER_ROLES.USER), PostController.getMyPosts);
+router.put("/vote-update", auth(USER_ROLES.USER), PostController.updateVote);
+
+router.get("/:id", auth(USER_ROLES.USER), PostController.getPost);
+
+router.get(
+  "/my-posts/:email",
+  auth(USER_ROLES.USER),
+  PostController.getMyPosts
+);
 
 export const PostRoutes = router;
