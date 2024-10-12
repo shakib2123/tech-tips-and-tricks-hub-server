@@ -14,4 +14,6 @@ router.post(
   PostController.createPost
 );
 
+router.get("/:email", auth(USER_ROLES.USER), PostController.getMyPosts);
+
 export const PostRoutes = router;

@@ -16,6 +16,18 @@ export const createPost = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getMyPosts = catchAsync(async (req: Request, res: Response) => {
+  const { email } = req.params;
+  const result = await PostServices.getMyPostsFromDB(email);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Posts retrieved successfully",
+    data: result,
+  });
+});
+
 export const PostController = {
   createPost,
+  getMyPosts,
 };

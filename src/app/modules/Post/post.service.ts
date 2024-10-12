@@ -5,6 +5,12 @@ const createPostIntoDB = async (payload: Record<string, unknown>) => {
   return result;
 };
 
+const getMyPostsFromDB = (email: string) => {
+  const result = Post.find({ userEmail: email });
+  return result;
+};
+
 export const PostServices = {
   createPostIntoDB,
+  getMyPostsFromDB,
 };
