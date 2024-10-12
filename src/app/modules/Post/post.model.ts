@@ -8,6 +8,8 @@ const postSchema = new Schema<TPost>(
     images: { type: [String], required: true },
     isPremium: { type: Boolean, required: true },
     category: { type: String, required: true },
+    upvotes: { type: Number, default: 0 },
+    downvotes: { type: Number, default: 0 },
     isDeleted: { type: Boolean, default: false },
   },
   {

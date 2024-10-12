@@ -35,6 +35,9 @@ importers:
       nodemailer:
         specifier: ^6.9.15
         version: 6.9.15
+      stripe:
+        specifier: ^17.2.0
+        version: 17.2.0
       ts-node-dev:
         specifier: ^2.0.0
         version: 2.0.0(@types/node@22.7.4)(typescript@5.6.2)
@@ -680,6 +683,10 @@ packages:
   strip-json-comments@2.0.1:
     resolution: {integrity: sha512-4gB8na07fecVVkOI6Rs4e7T6NOTki5EmL7TUduTs6bu3EdnSycntVJ4re8kgZA+wx9IueI2Y11bfbgwtzuE0KQ==}
     engines: {node: '>=0.10.0'}
+
+  stripe@17.2.0:
+    resolution: {integrity: sha512-KuDplY9WrNKi07+uEFeguis/Mh+HC+hfEMy8P5snhQzCXUv01o+4KcIJ9auFxpv4Odp2R2krs9rZ9PhQl8+Sdw==}
+    engines: {node: '>=12.*'}
 
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
@@ -1409,6 +1416,11 @@ snapshots:
   strip-bom@3.0.0: {}
 
   strip-json-comments@2.0.1: {}
+
+  stripe@17.2.0:
+    dependencies:
+      '@types/node': 22.7.4
+      qs: 6.13.0
 
   supports-preserve-symlinks-flag@1.0.0: {}
 

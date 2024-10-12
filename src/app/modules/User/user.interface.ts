@@ -10,8 +10,8 @@ export type TUser = {
   location: string;
   bio: string;
   website: string;
-  followers: string[];
-  following: string[];
+  followers: number;
+  following: number;
   premiumSubscription: {
     isActive: boolean;
     subscriptionDate: Date;

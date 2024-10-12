@@ -6,5 +6,7 @@ export type TPost = {
   images: string[];
   isPremium: boolean;
   category: string;
+  upvotes: number;
+  downvotes: number;
   isDeleted: boolean;
 };
