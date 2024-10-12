@@ -6,7 +6,7 @@ const createPostIntoDB = async (payload: Record<string, unknown>) => {
 };
 
 const getMyPostsFromDB = (email: string) => {
-  const result = Post.find({ userEmail: email });
+  const result = Post.find({ userEmail: email }).populate("userId");
   return result;
 };
 

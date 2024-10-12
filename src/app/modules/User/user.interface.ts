@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 export type TUser = {
   name: string;
   email: string;
@@ -10,8 +12,8 @@ export type TUser = {
   location: string;
   bio: string;
   website: string;
-  followers: number;
-  following: number;
+  followers: Types.ObjectId;
+  following: Types.ObjectId;
   premiumSubscription: {
     isActive: boolean;
     subscriptionDate: Date;

@@ -21,8 +21,8 @@ const userSchema = new Schema<TUser>(
     website: { type: String, default: null },
     profilePhoto: { type: String, required: true },
     isVerified: { type: Boolean, default: false },
-    followers: { type: Number, default: 0 },
-    following: { type: Number, default: 0 },
+    followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    following: [{ type: Schema.Types.ObjectId, ref: "User" }],
     premiumSubscription: {
       isActive: { type: Boolean, default: false },
       subscriptionDate: { type: Date, default: null },
