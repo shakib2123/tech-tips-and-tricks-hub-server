@@ -38,7 +38,6 @@ const createFollowIntoDB = (payload) => __awaiter(void 0, void 0, void 0, functi
     catch (error) {
         yield session.abortTransaction();
         session.endSession();
-        console.error("Error during transaction:", error);
         throw new AppError_1.default(http_status_1.default.INTERNAL_SERVER_ERROR, error.message || "Something went wrong");
     }
 });
@@ -61,7 +60,6 @@ const createUnfollowIntoDB = (payload) => __awaiter(void 0, void 0, void 0, func
     catch (error) {
         yield session.abortTransaction();
         session.endSession();
-        console.error("Error during transaction:", error);
         throw new AppError_1.default(http_status_1.default.INTERNAL_SERVER_ERROR, error.message || "Something went wrong");
     }
 });

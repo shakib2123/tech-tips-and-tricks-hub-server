@@ -63,7 +63,6 @@ const stripePaymentIntoDB = (data) => __awaiter(void 0, void 0, void 0, function
         return { id: session.id };
     }
     catch (error) {
-        console.error("Error processing payment:", error);
         throw new AppError_1.default(http_status_1.default.INTERNAL_SERVER_ERROR, error.message || "Payment processing failed");
     }
 });

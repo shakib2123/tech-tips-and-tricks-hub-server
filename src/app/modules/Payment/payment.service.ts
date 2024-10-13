@@ -62,7 +62,6 @@ const stripePaymentIntoDB = async (data: TPayment) => {
 
     return { id: session.id };
   } catch (error: any) {
-    console.error("Error processing payment:", error);
     throw new AppError(
       httpStatus.INTERNAL_SERVER_ERROR,
       error.message || "Payment processing failed"

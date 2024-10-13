@@ -32,7 +32,7 @@ const createFollowIntoDB = async (payload: TFollow) => {
   } catch (error: any) {
     await session.abortTransaction();
     session.endSession();
-    console.error("Error during transaction:", error);
+
     throw new AppError(
       httpStatus.INTERNAL_SERVER_ERROR,
       error.message || "Something went wrong"
@@ -68,7 +68,7 @@ const createUnfollowIntoDB = async (payload: TFollow) => {
   } catch (error: any) {
     await session.abortTransaction();
     session.endSession();
-    console.error("Error during transaction:", error);
+
     throw new AppError(
       httpStatus.INTERNAL_SERVER_ERROR,
       error.message || "Something went wrong"
