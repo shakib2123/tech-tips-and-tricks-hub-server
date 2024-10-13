@@ -6,9 +6,7 @@ import Stripe from "stripe";
 import { Payment } from "./payment.model";
 import httpStatus from "http-status";
 
-const stripe = new Stripe(config.stripe_secret_key!, {
-  apiVersion: "2020-08-27",
-}); // Ensure apiVersion is set
+const stripe = new Stripe(config.stripe_secret_key!);
 
 const stripePaymentIntoDB = async (data: TPayment) => {
   const lineItems = [
