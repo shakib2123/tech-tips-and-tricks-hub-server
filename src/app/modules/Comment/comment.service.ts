@@ -7,6 +7,18 @@ const createCommentIntoDB = async (payload: TComment) => {
   return result;
 };
 
+const getCommentsFromDB = async () => {
+  const result = await Comment.find().populate("userId");
+  return result;
+};
+
+const deleteCommentFromDB = async (id: string) => {
+  const result = await Comment.findByIdAndDelete(id);
+  return result;
+};
+
 export const CommentServices = {
   createCommentIntoDB,
+  getCommentsFromDB,
+  deleteCommentFromDB,
 };

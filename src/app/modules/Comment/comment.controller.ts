@@ -15,7 +15,31 @@ const createComment = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const getComments = catchAsync(async (req: Request, res: Response) => {
+  console.log("req.body", req.body);
+
+  const result = await CommentServices.getCommentsFromDB();
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Comments retrieved successfully",
+    data: result,
+  });
+});
+const deleteComment = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+
+  const result = await CommentServices.deleteCommentFromDB(id);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Comment deleted successfully",
+    data: result,
+  });
+});
 
 export const CommentController = {
   createComment,
+  getComments,
+  deleteComment,
 };
