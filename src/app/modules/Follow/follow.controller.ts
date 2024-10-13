@@ -5,8 +5,6 @@ import sendResponse from "../../utils/sendResponse";
 import httpStatus from "http-status";
 
 const createFollow = catchAsync(async (req: Request, res: Response) => {
-  console.log("req.body", req.body);
-
   const result = await FollowServices.createFollowIntoDB(req.body);
   sendResponse(res, {
     success: true,
@@ -17,8 +15,6 @@ const createFollow = catchAsync(async (req: Request, res: Response) => {
 });
 
 const createUnfollow = catchAsync(async (req: Request, res: Response) => {
-  console.log("req.body", req.body);
-
   const result = await FollowServices.createUnfollowIntoDB(req.body);
   sendResponse(res, {
     success: true,

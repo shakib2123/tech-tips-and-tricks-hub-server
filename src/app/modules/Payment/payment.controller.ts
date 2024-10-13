@@ -6,8 +6,6 @@ import { PaymentServices } from "./payment.service";
 
 const createPaymentCheckoutSession = catchAsync(
   async (req: Request, res: Response) => {
-    console.log("req.body", req.body);
-
     const result = await PaymentServices.stripePaymentIntoDB(req.body);
     sendResponse(res, {
       success: true,

@@ -5,8 +5,6 @@ import httpStatus from "http-status";
 import { PostServices } from "./post.service";
 
 export const createPost = catchAsync(async (req: Request, res: Response) => {
-  console.log("req.body", req.body);
-
   const result = await PostServices.createPostIntoDB(req.body);
   sendResponse(res, {
     success: true,
@@ -29,7 +27,6 @@ const getMyPosts = catchAsync(async (req: Request, res: Response) => {
 const getPost = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  console.log("id", id);
   const result = await PostServices.getPostFromDB(id);
   sendResponse(res, {
     success: true,
@@ -38,10 +35,26 @@ const getPost = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const getAllPosts = catchAsync(async (req: Request, res: Response) => {
+  const { sortValue, searchValue, filterValue, page, limit } = req.query;
+
+  const result = await PostServices.getAllPostsFromDB({
+    sortValue,
+    searchValue,
+    filterValue,
+    page,
+    limit,
+  });
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Posts retrieved successfully",
+    data: result,
+  });
+});
 
 const updateVote = catchAsync(async (req: Request, res: Response) => {
   const voteData = req.body;
-  console.log("voteData", voteData);
 
   const result = await PostServices.updateVoteIntoDB(voteData);
   sendResponse(res, {
@@ -57,4 +70,5 @@ export const PostController = {
   getMyPosts,
   getPost,
   updateVote,
+  getAllPosts,
 };

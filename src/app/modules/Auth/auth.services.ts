@@ -82,7 +82,7 @@ const loginUser = async (payload: TLoginUser) => {
   );
 
   const { password, ...userData } = user.toObject();
-  console.log();
+
   return { user: userData, accessToken, refreshToken };
 };
 

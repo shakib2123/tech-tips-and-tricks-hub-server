@@ -14,5 +14,6 @@ const router = (0, express_1.Router)();
 router.post("/", (0, validateRequest_1.default)(post_validation_1.PostValidations.createPostValidationSchema), (0, auth_1.auth)(user_constant_1.USER_ROLES.USER), post_controller_1.PostController.createPost);
 router.put("/vote-update", (0, auth_1.auth)(user_constant_1.USER_ROLES.USER), post_controller_1.PostController.updateVote);
 router.get("/:id", (0, auth_1.auth)(user_constant_1.USER_ROLES.USER), post_controller_1.PostController.getPost);
+router.get("/", post_controller_1.PostController.getAllPosts);
 router.get("/my-posts/:email", (0, auth_1.auth)(user_constant_1.USER_ROLES.USER), post_controller_1.PostController.getMyPosts);
 exports.PostRoutes = router;

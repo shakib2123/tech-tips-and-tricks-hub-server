@@ -23,6 +23,43 @@ const getPostFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield post_model_1.Post.findById(id).populate("userId");
     return result;
 });
+const getAllPostsFromDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const { sortValue, searchValue, filterValue, page, limit } = payload;
+    const filter = {};
+    if (searchValue) {
+        filter.$or = [
+            { category: { $regex: searchValue, $options: "i" } },
+            { description: { $regex: searchValue, $options: "i" } },
+        ];
+    }
+    else if (filterValue) {
+        filter.category = filterValue;
+    }
+    let sort = {};
+    if (sortValue === "-createdAt") {
+        sort = { createdAt: -1 };
+    }
+    else if (sortValue === "createdAt") {
+        sort = { createdAt: 1 };
+    }
+    let skip = 0;
+    const limitValue = Number(limit) || 1;
+    if (page) {
+        skip = (Number(page) - 1) * limitValue;
+    }
+    const result = yield post_model_1.Post.find(filter)
+        .sort(sort)
+        .skip(skip)
+        .limit(limitValue)
+        .populate("userId");
+    if (sortValue === "upvote") {
+        result.sort((a, b) => b.upvote.length - a.upvote.length);
+    }
+    else if (sortValue === "downvote") {
+        result.sort((a, b) => b.downvote.length - a.downvote.length);
+    }
+    return result;
+});
 const updateVoteIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     if (payload.voteType === "downvote") {
         const post = yield post_model_1.Post.findOne({ _id: payload.postId });
@@ -56,4 +93,5 @@ exports.PostServices = {
     getMyPostsFromDB,
     getPostFromDB,
     updateVoteIntoDB,
+    getAllPostsFromDB,
 };

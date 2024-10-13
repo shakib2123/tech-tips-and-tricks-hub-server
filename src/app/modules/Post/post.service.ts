@@ -1,4 +1,3 @@
-import { assign } from "nodemailer/lib/shared";
 import { Post } from "./post.model";
 
 const createPostIntoDB = async (payload: Record<string, unknown>) => {
@@ -12,6 +11,47 @@ const getMyPostsFromDB = async (email: string) => {
 };
 const getPostFromDB = async (id: string) => {
   const result = await Post.findById(id).populate("userId");
+  return result;
+};
+const getAllPostsFromDB = async (payload: Record<string, unknown>) => {
+  const { sortValue, searchValue, filterValue, page, limit } = payload;
+  const filter: any = {};
+
+  if (searchValue) {
+    filter.$or = [
+      { category: { $regex: searchValue, $options: "i" } },
+      { description: { $regex: searchValue, $options: "i" } },
+    ];
+  } else if (filterValue) {
+    filter.category = filterValue;
+  }
+
+  let sort: any = {};
+  if (sortValue === "-createdAt") {
+    sort = { createdAt: -1 };
+  } else if (sortValue === "createdAt") {
+    sort = { createdAt: 1 };
+  }
+
+  let skip = 0;
+  const limitValue = Number(limit) || 1;
+
+  if (page) {
+    skip = (Number(page) - 1) * limitValue;
+  }
+
+  const result = await Post.find(filter)
+    .sort(sort)
+    .skip(skip)
+    .limit(limitValue)
+    .populate("userId");
+
+  if (sortValue === "upvote") {
+    result.sort((a, b) => b.upvote.length - a.upvote.length);
+  } else if (sortValue === "downvote") {
+    result.sort((a, b) => b.downvote.length - a.downvote.length);
+  }
+
   return result;
 };
 
@@ -61,4 +101,5 @@ export const PostServices = {
   getMyPostsFromDB,
   getPostFromDB,
   updateVoteIntoDB,
+  getAllPostsFromDB,
 };

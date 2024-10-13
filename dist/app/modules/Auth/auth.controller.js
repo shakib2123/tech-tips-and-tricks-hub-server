@@ -27,7 +27,6 @@ const registerUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
     });
 }));
 const loginUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("req.body", req.body);
     const result = yield auth_services_1.AuthServices.loginUser(req.body);
     (0, sendResponse_1.default)(res, {
         success: true,

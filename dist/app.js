@@ -14,7 +14,10 @@ const app = (0, express_1.default)();
 // Set up the middleware
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
-    origin: ["", "http://localhost:3000"],
+    origin: [
+        "https://tech-tips-and-tricks-hub-client-eosin.vercel.app",
+        "http://localhost:3000",
+    ],
     credentials: true,
 }));
 app.use((0, cookie_parser_1.default)());

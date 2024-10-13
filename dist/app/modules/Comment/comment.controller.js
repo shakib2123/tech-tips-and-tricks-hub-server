@@ -18,7 +18,6 @@ const comment_service_1 = require("./comment.service");
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const http_status_1 = __importDefault(require("http-status"));
 const createComment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("req.body", req.body);
     const result = yield comment_service_1.CommentServices.createCommentIntoDB(req.body);
     (0, sendResponse_1.default)(res, {
         success: true,
@@ -28,7 +27,6 @@ const createComment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
     });
 }));
 const getComments = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("req.body", req.body);
     const result = yield comment_service_1.CommentServices.getCommentsFromDB();
     (0, sendResponse_1.default)(res, {
         success: true,

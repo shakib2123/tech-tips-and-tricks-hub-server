@@ -18,7 +18,6 @@ const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const http_status_1 = __importDefault(require("http-status"));
 const post_service_1 = require("./post.service");
 exports.createPost = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("req.body", req.body);
     const result = yield post_service_1.PostServices.createPostIntoDB(req.body);
     (0, sendResponse_1.default)(res, {
         success: true,
@@ -39,7 +38,6 @@ const getMyPosts = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
 }));
 const getPost = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    console.log("id", id);
     const result = yield post_service_1.PostServices.getPostFromDB(id);
     (0, sendResponse_1.default)(res, {
         success: true,
@@ -48,9 +46,24 @@ const getPost = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0
         data: result,
     });
 }));
+const getAllPosts = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { sortValue, searchValue, filterValue, page, limit } = req.query;
+    const result = yield post_service_1.PostServices.getAllPostsFromDB({
+        sortValue,
+        searchValue,
+        filterValue,
+        page,
+        limit,
+    });
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: "Posts retrieved successfully",
+        data: result,
+    });
+}));
 const updateVote = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const voteData = req.body;
-    console.log("voteData", voteData);
     const result = yield post_service_1.PostServices.updateVoteIntoDB(voteData);
     (0, sendResponse_1.default)(res, {
         success: true,
@@ -64,4 +77,5 @@ exports.PostController = {
     getMyPosts,
     getPost,
     updateVote,
+    getAllPosts,
 };

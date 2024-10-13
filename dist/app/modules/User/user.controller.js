@@ -46,7 +46,6 @@ const getCurrentUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
 }));
 const updateUserInfo = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.params;
-    console.log("req.body", req.body);
     const result = yield user_services_1.UserServices.updateUserInfoIntoDB(email, req.body);
     (0, sendResponse_1.default)(res, {
         success: true,

@@ -42,8 +42,6 @@ const getCurrentUser = catchAsync(async (req: Request, res: Response) => {
 const updateUserInfo = catchAsync(async (req: Request, res: Response) => {
   const { email } = req.params;
 
-  console.log("req.body", req.body);
-
   const result = await UserServices.updateUserInfoIntoDB(email, req.body);
   sendResponse(res, {
     success: true,

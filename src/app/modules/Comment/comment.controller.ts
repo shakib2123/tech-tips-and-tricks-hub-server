@@ -5,8 +5,6 @@ import sendResponse from "../../utils/sendResponse";
 import httpStatus from "http-status";
 
 const createComment = catchAsync(async (req: Request, res: Response) => {
-  console.log("req.body", req.body);
-
   const result = await CommentServices.createCommentIntoDB(req.body);
   sendResponse(res, {
     success: true,
@@ -16,8 +14,6 @@ const createComment = catchAsync(async (req: Request, res: Response) => {
   });
 });
 const getComments = catchAsync(async (req: Request, res: Response) => {
-  console.log("req.body", req.body);
-
   const result = await CommentServices.getCommentsFromDB();
   sendResponse(res, {
     success: true,

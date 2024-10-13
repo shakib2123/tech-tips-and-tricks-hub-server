@@ -18,7 +18,6 @@ const http_status_1 = __importDefault(require("http-status"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const payment_service_1 = require("./payment.service");
 const createPaymentCheckoutSession = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("req.body", req.body);
     const result = yield payment_service_1.PaymentServices.stripePaymentIntoDB(req.body);
     (0, sendResponse_1.default)(res, {
         success: true,
