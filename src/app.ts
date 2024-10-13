@@ -12,7 +12,10 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["", "http://localhost:3000"],
+    origin: [
+      "https://tech-tips-and-tricks-hub-client-eosin.vercel.app",
+      "http://localhost:3000",
+    ],
     credentials: true,
   })
 );
