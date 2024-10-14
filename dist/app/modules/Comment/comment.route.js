@@ -13,5 +13,6 @@ const comment_validation_1 = require("./comment.validation");
 const router = (0, express_1.Router)();
 router.post("/", (0, auth_1.auth)(user_constant_1.USER_ROLES.USER), (0, validateRequest_1.default)(comment_validation_1.CommentValidations.commentValidationSchema), comment_controller_1.CommentController.createComment);
 router.get("/", (0, auth_1.auth)(user_constant_1.USER_ROLES.USER), comment_controller_1.CommentController.getComments);
+router.put("/:id", (0, auth_1.auth)(user_constant_1.USER_ROLES.USER), comment_controller_1.CommentController.updateComment);
 router.delete("/:id", (0, auth_1.auth)(user_constant_1.USER_ROLES.USER), comment_controller_1.CommentController.deleteComment);
 exports.CommentRoutes = router;

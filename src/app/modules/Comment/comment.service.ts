@@ -12,6 +12,22 @@ const getCommentsFromDB = async () => {
   return result;
 };
 
+const updateCommentFromDB = async ({
+  id,
+  comment,
+}: {
+  id: string;
+  comment: string;
+}) => {
+  const result = await Comment.findByIdAndUpdate(
+    id,
+    { comment },
+    { new: true }
+  );
+  console.log(result);
+  return result;
+};
+
 const deleteCommentFromDB = async (id: string) => {
   const result = await Comment.findByIdAndDelete(id);
   return result;
@@ -21,4 +37,5 @@ export const CommentServices = {
   createCommentIntoDB,
   getCommentsFromDB,
   deleteCommentFromDB,
+  updateCommentFromDB,
 };

@@ -19,6 +19,11 @@ const getCommentsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield comment_model_1.Comment.find().populate("userId");
     return result;
 });
+const updateCommentFromDB = (_a) => __awaiter(void 0, [_a], void 0, function* ({ id, comment, }) {
+    const result = yield comment_model_1.Comment.findByIdAndUpdate(id, { comment }, { new: true });
+    console.log(result);
+    return result;
+});
 const deleteCommentFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield comment_model_1.Comment.findByIdAndDelete(id);
     return result;
@@ -27,4 +32,5 @@ exports.CommentServices = {
     createCommentIntoDB,
     getCommentsFromDB,
     deleteCommentFromDB,
+    updateCommentFromDB,
 };

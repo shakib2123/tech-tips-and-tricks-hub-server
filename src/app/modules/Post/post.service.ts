@@ -15,6 +15,7 @@ const getPostFromDB = async (id: string) => {
 };
 const getAllPostsFromDB = async (payload: Record<string, unknown>) => {
   const { sortValue, searchValue, filterValue, page, limit } = payload;
+  console.log(payload);
   const filter: any = {};
 
   if (searchValue) {
@@ -34,10 +35,11 @@ const getAllPostsFromDB = async (payload: Record<string, unknown>) => {
   }
 
   let skip = 0;
-  const limitValue = Number(limit) || 1;
+  let initialPage = Number(page) || 1;
+  const limitValue = Number(limit) || 10;
 
   if (page) {
-    skip = (Number(page) - 1) * limitValue;
+    skip = (initialPage - 1) * limitValue;
   }
 
   const result = await Post.find(filter)
@@ -51,6 +53,8 @@ const getAllPostsFromDB = async (payload: Record<string, unknown>) => {
   } else if (sortValue === "downvote") {
     result.sort((a, b) => b.downvote.length - a.downvote.length);
   }
+
+  console.log(result);
 
   return result;
 };

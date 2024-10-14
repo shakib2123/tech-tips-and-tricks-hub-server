@@ -35,6 +35,17 @@ const getComments = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, vo
         data: result,
     });
 }));
+const updateComment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const { comment } = req.body;
+    const result = yield comment_service_1.CommentServices.updateCommentFromDB({ id, comment });
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: "Comment updated successfully",
+        data: result,
+    });
+}));
 const deleteComment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     const result = yield comment_service_1.CommentServices.deleteCommentFromDB(id);
@@ -49,4 +60,5 @@ exports.CommentController = {
     createComment,
     getComments,
     deleteComment,
+    updateComment,
 };

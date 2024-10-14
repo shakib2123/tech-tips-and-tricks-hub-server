@@ -25,6 +25,7 @@ const getPostFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const getAllPostsFromDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const { sortValue, searchValue, filterValue, page, limit } = payload;
+    console.log(payload);
     const filter = {};
     if (searchValue) {
         filter.$or = [
@@ -43,9 +44,10 @@ const getAllPostsFromDB = (payload) => __awaiter(void 0, void 0, void 0, functio
         sort = { createdAt: 1 };
     }
     let skip = 0;
-    const limitValue = Number(limit) || 1;
+    let initialPage = Number(page) || 1;
+    const limitValue = Number(limit) || 10;
     if (page) {
-        skip = (Number(page) - 1) * limitValue;
+        skip = (initialPage - 1) * limitValue;
     }
     const result = yield post_model_1.Post.find(filter)
         .sort(sort)
@@ -58,6 +60,7 @@ const getAllPostsFromDB = (payload) => __awaiter(void 0, void 0, void 0, functio
     else if (sortValue === "downvote") {
         result.sort((a, b) => b.downvote.length - a.downvote.length);
     }
+    console.log(result);
     return result;
 });
 const updateVoteIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
