@@ -112,6 +112,11 @@ const updatePostIntoDB = async ({
   return result;
 };
 
+const deletePostFromDB = async (id: string) => {
+  const result = await Post.findByIdAndDelete(id);
+  return result;
+};
+
 export const PostServices = {
   createPostIntoDB,
   getMyPostsFromDB,
@@ -119,4 +124,5 @@ export const PostServices = {
   updateVoteIntoDB,
   getAllPostsFromDB,
   updatePostIntoDB,
+  deletePostFromDB,
 };

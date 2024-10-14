@@ -96,6 +96,10 @@ const updatePostIntoDB = (_a) => __awaiter(void 0, [_a], void 0, function* ({ po
     });
     return result;
 });
+const deletePostFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield post_model_1.Post.findByIdAndDelete(id);
+    return result;
+});
 exports.PostServices = {
     createPostIntoDB,
     getMyPostsFromDB,
@@ -103,4 +107,5 @@ exports.PostServices = {
     updateVoteIntoDB,
     getAllPostsFromDB,
     updatePostIntoDB,
+    deletePostFromDB,
 };

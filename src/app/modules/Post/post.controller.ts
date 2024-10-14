@@ -80,6 +80,17 @@ const updatePost = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const deletePost = catchAsync(async (req: Request, res: Response) => {
+  const { postId } = req.params;
+
+  const result = await PostServices.deletePostFromDB(postId);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Post deleted successfully",
+    data: result,
+  });
+});
 
 export const PostController = {
   createPost,
@@ -88,4 +99,5 @@ export const PostController = {
   updateVote,
   getAllPosts,
   updatePost,
+  deletePost,
 };

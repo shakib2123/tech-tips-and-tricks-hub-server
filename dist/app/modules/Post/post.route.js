@@ -17,4 +17,5 @@ router.get("/:id", (0, auth_1.auth)(user_constant_1.USER_ROLES.USER, user_consta
 router.get("/", post_controller_1.PostController.getAllPosts);
 router.get("/my-posts/:email", (0, auth_1.auth)(user_constant_1.USER_ROLES.USER, user_constant_1.USER_ROLES.ADMIN), post_controller_1.PostController.getMyPosts);
 router.patch("/:postId", (0, auth_1.auth)(user_constant_1.USER_ROLES.USER, user_constant_1.USER_ROLES.ADMIN), post_controller_1.PostController.updatePost);
+router.delete("/:postId", (0, auth_1.auth)(user_constant_1.USER_ROLES.USER, user_constant_1.USER_ROLES.ADMIN), post_controller_1.PostController.deletePost);
 exports.PostRoutes = router;

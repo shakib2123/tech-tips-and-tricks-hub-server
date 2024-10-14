@@ -88,6 +88,16 @@ const updatePost = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
         data: result,
     });
 }));
+const deletePost = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { postId } = req.params;
+    const result = yield post_service_1.PostServices.deletePostFromDB(postId);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: "Post deleted successfully",
+        data: result,
+    });
+}));
 exports.PostController = {
     createPost: exports.createPost,
     getMyPosts,
@@ -95,4 +105,5 @@ exports.PostController = {
     updateVote,
     getAllPosts,
     updatePost,
+    deletePost,
 };
