@@ -10,13 +10,13 @@ const router = Router();
 router.post(
   "/following",
   validateRequest(FollowValidations.followValidationSchema),
-  auth(USER_ROLES.USER),
+  auth(USER_ROLES.USER, USER_ROLES.ADMIN),
   FollowController.createFollow
 );
 router.post(
   "/unfollow",
   validateRequest(FollowValidations.followValidationSchema),
-  auth(USER_ROLES.USER),
+  auth(USER_ROLES.USER, USER_ROLES.ADMIN),
   FollowController.createUnfollow
 );
 

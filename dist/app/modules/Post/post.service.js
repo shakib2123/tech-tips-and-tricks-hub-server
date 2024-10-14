@@ -45,7 +45,7 @@ const getAllPostsFromDB = (payload) => __awaiter(void 0, void 0, void 0, functio
     }
     let skip = 0;
     let initialPage = Number(page) || 1;
-    const limitValue = Number(limit) || 10;
+    const limitValue = Number(limit) || 100;
     if (page) {
         skip = (initialPage - 1) * limitValue;
     }
@@ -60,7 +60,6 @@ const getAllPostsFromDB = (payload) => __awaiter(void 0, void 0, void 0, functio
     else if (sortValue === "downvote") {
         result.sort((a, b) => b.downvote.length - a.downvote.length);
     }
-    console.log(result);
     return result;
 });
 const updateVoteIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
@@ -91,10 +90,17 @@ const updateVoteIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function
         }
     }
 });
+const updatePostIntoDB = (_a) => __awaiter(void 0, [_a], void 0, function* ({ postId, updatedData, }) {
+    const result = yield post_model_1.Post.findOneAndUpdate({ _id: postId }, updatedData, {
+        new: true,
+    });
+    return result;
+});
 exports.PostServices = {
     createPostIntoDB,
     getMyPostsFromDB,
     getPostFromDB,
     updateVoteIntoDB,
     getAllPostsFromDB,
+    updatePostIntoDB,
 };

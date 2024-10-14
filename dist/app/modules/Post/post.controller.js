@@ -48,6 +48,7 @@ const getPost = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0
 }));
 const getAllPosts = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { sortValue, searchValue, filterValue, page, limit } = req.query;
+    console.log(req.query);
     const result = yield post_service_1.PostServices.getAllPostsFromDB({
         sortValue,
         searchValue,
@@ -72,10 +73,26 @@ const updateVote = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
         data: result,
     });
 }));
+const updatePost = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { postId } = req.params;
+    const updatedData = req.body;
+    console.log(updatedData);
+    const result = yield post_service_1.PostServices.updatePostIntoDB({
+        postId,
+        updatedData,
+    });
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: "Post Updated successfully",
+        data: result,
+    });
+}));
 exports.PostController = {
     createPost: exports.createPost,
     getMyPosts,
     getPost,
     updateVote,
     getAllPosts,
+    updatePost,
 };

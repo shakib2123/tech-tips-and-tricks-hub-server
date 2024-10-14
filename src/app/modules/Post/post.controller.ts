@@ -37,7 +37,7 @@ const getPost = catchAsync(async (req: Request, res: Response) => {
 });
 const getAllPosts = catchAsync(async (req: Request, res: Response) => {
   const { sortValue, searchValue, filterValue, page, limit } = req.query;
-
+  console.log(req.query);
   const result = await PostServices.getAllPostsFromDB({
     sortValue,
     searchValue,
@@ -64,6 +64,22 @@ const updateVote = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const updatePost = catchAsync(async (req: Request, res: Response) => {
+  const { postId } = req.params;
+  const updatedData = req.body;
+  console.log(updatedData);
+
+  const result = await PostServices.updatePostIntoDB({
+    postId,
+    updatedData,
+  });
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Post Updated successfully",
+    data: result,
+  });
+});
 
 export const PostController = {
   createPost,
@@ -71,4 +87,5 @@ export const PostController = {
   getPost,
   updateVote,
   getAllPosts,
+  updatePost,
 };

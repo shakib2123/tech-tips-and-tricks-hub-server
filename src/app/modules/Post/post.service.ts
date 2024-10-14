@@ -36,7 +36,7 @@ const getAllPostsFromDB = async (payload: Record<string, unknown>) => {
 
   let skip = 0;
   let initialPage = Number(page) || 1;
-  const limitValue = Number(limit) || 10;
+  const limitValue = Number(limit) || 100;
 
   if (page) {
     skip = (initialPage - 1) * limitValue;
@@ -53,8 +53,6 @@ const getAllPostsFromDB = async (payload: Record<string, unknown>) => {
   } else if (sortValue === "downvote") {
     result.sort((a, b) => b.downvote.length - a.downvote.length);
   }
-
-  console.log(result);
 
   return result;
 };
@@ -100,10 +98,25 @@ const updateVoteIntoDB = async (payload: Record<string, string>) => {
     }
   }
 };
+
+const updatePostIntoDB = async ({
+  postId,
+  updatedData,
+}: {
+  postId: string;
+  updatedData: Record<string, unknown>;
+}) => {
+  const result = await Post.findOneAndUpdate({ _id: postId }, updatedData, {
+    new: true,
+  });
+  return result;
+};
+
 export const PostServices = {
   createPostIntoDB,
   getMyPostsFromDB,
   getPostFromDB,
   updateVoteIntoDB,
   getAllPostsFromDB,
+  updatePostIntoDB,
 };

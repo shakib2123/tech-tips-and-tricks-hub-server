@@ -9,14 +9,26 @@ const router = Router();
 
 router.post(
   "/",
-  auth(USER_ROLES.USER),
+  auth(USER_ROLES.USER, USER_ROLES.ADMIN),
   validateRequest(CommentValidations.commentValidationSchema),
   CommentController.createComment
 );
 
-router.get("/", auth(USER_ROLES.USER), CommentController.getComments);
+router.get(
+  "/",
+  auth(USER_ROLES.USER, USER_ROLES.ADMIN),
+  CommentController.getComments
+);
 
-router.put("/:id", auth(USER_ROLES.USER), CommentController.updateComment);
-router.delete("/:id", auth(USER_ROLES.USER), CommentController.deleteComment);
+router.put(
+  "/:id",
+  auth(USER_ROLES.USER, USER_ROLES.ADMIN),
+  CommentController.updateComment
+);
+router.delete(
+  "/:id",
+  auth(USER_ROLES.USER, USER_ROLES.ADMIN),
+  CommentController.deleteComment
+);
 
 export const CommentRoutes = router;

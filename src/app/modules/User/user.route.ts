@@ -7,12 +7,16 @@ import { UserValidations } from "./user.validation";
 
 const router = Router();
 
-router.get("/user-data", auth(USER_ROLES.USER), UserController.getCurrentUser);
+router.get(
+  "/user-data",
+  auth(USER_ROLES.USER, USER_ROLES.ADMIN),
+  UserController.getCurrentUser
+);
 
 router.patch(
   "/:email",
   validateRequest(UserValidations.updateUserInfoSchema),
-  auth(USER_ROLES.USER),
+  auth(USER_ROLES.USER, USER_ROLES.ADMIN),
   UserController.updateUserInfo
 );
 

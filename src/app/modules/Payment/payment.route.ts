@@ -10,7 +10,7 @@ const router = Router();
 
 router.post(
   "/create-payment-checkout-session",
-  auth(USER_ROLES.USER),
+  auth(USER_ROLES.USER, USER_ROLES.ADMIN),
   validateRequest(PaymentValidations.paymentValidationSchema),
   PaymentController.createPaymentCheckoutSession
 );
