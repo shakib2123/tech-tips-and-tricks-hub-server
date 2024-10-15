@@ -16,8 +16,17 @@ export const createPost = catchAsync(async (req: Request, res: Response) => {
 
 const getMyPosts = catchAsync(async (req: Request, res: Response) => {
   const { email } = req.params;
+  const { sortValue, searchValue, filterValue, page, limit } = req.query;
+  console.log(req.query);
 
-  const result = await PostServices.getMyPostsFromDB(email);
+  const result = await PostServices.getMyPostsFromDB({
+    email,
+    sortValue,
+    searchValue,
+    filterValue,
+    page,
+    limit,
+  });
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,

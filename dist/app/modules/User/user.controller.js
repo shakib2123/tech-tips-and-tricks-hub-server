@@ -20,6 +20,24 @@ const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const config_1 = __importDefault(require("../../config"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const AppError_1 = __importDefault(require("../../errors/AppError"));
+const getUsers = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { role } = req.query;
+    const result = yield user_services_1.UserServices.getUsersFromDB(role);
+    if (!result) {
+        res.status(http_status_1.default.NOT_FOUND).json({
+            success: false,
+            statusCode: http_status_1.default.NOT_FOUND,
+            message: "No Data Found",
+            data: [],
+        });
+    }
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: "User retrieved successfully",
+        data: result,
+    });
+}));
 const getCurrentUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const token = (_a = req === null || req === void 0 ? void 0 : req.headers) === null || _a === void 0 ? void 0 : _a.authorization;
@@ -46,6 +64,7 @@ const getCurrentUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
 }));
 const updateUserInfo = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.params;
+    console.log(req.body);
     const result = yield user_services_1.UserServices.updateUserInfoIntoDB(email, req.body);
     (0, sendResponse_1.default)(res, {
         success: true,
@@ -64,8 +83,20 @@ const followingActivity = (0, catchAsync_1.default)((req, res) => __awaiter(void
         data: result,
     });
 }));
+const deleteUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId } = req.params;
+    const result = yield user_services_1.UserServices.deleteUserFromDB(userId);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: "User deleted successfully",
+        data: result,
+    });
+}));
 exports.UserController = {
+    getUsers,
     getCurrentUser,
     updateUserInfo,
     followingActivity,
+    deleteUser,
 };

@@ -7,6 +7,25 @@ import config from "../../config";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import AppError from "../../errors/AppError";
 
+const getUsers = catchAsync(async (req: Request, res: Response) => {
+  const { role } = req.query;
+
+  const result = await UserServices.getUsersFromDB(role as string);
+  if (!result) {
+    res.status(httpStatus.NOT_FOUND).json({
+      success: false,
+      statusCode: httpStatus.NOT_FOUND,
+      message: "No Data Found",
+      data: [],
+    });
+  }
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "User retrieved successfully",
+    data: result,
+  });
+});
 const getCurrentUser = catchAsync(async (req: Request, res: Response) => {
   const token = req?.headers?.authorization;
 
@@ -66,8 +85,22 @@ const followingActivity = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const deleteUser = catchAsync(async (req: Request, res: Response) => {
+  const { userId } = req.params;
+
+  const result = await UserServices.deleteUserFromDB(userId);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "User deleted successfully",
+    data: result,
+  });
+});
+
 export const UserController = {
+  getUsers,
   getCurrentUser,
   updateUserInfo,
   followingActivity,
+  deleteUser,
 };

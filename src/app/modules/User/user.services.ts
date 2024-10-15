@@ -1,5 +1,18 @@
 import { User } from "./user.model";
 
+const getUsersFromDB = async (role: string) => {
+  const filter = {
+    isDeleted: false,
+    role: "",
+  };
+
+  if (role) {
+    filter.role = role;
+  }
+
+  const result = await User.find(filter);
+  return result;
+};
 const getCurrentUserFromDB = async (email: string) => {
   const result = await User.findOne({ email });
   return result;
@@ -29,8 +42,18 @@ const followingActivity = async (email: string, tab: string) => {
   return users;
 };
 
+const deleteUserFromDB = async (userId: string) => {
+  const result = await User.findOneAndUpdate(
+    { _id: userId },
+    { isDeleted: true }
+  );
+  return result;
+};
+
 export const UserServices = {
   getCurrentUserFromDB,
   updateUserInfoIntoDB,
   followingActivity,
+  getUsersFromDB,
+  deleteUserFromDB,
 };

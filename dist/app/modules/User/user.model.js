@@ -39,6 +39,7 @@ const userSchema = new mongoose_1.Schema({
         subscriptionDate: { type: Date, default: null },
         expirationDate: { type: Date, default: null },
     },
+    isBlocked: { type: Boolean, default: false },
     isDeleted: { type: Boolean, default: false },
 }, {
     timestamps: true,

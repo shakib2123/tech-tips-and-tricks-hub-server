@@ -15,8 +15,41 @@ const createPostIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function
     const result = yield post_model_1.Post.create(payload);
     return result;
 });
-const getMyPostsFromDB = (email) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield post_model_1.Post.find({ userEmail: email }).populate("userId");
+const getMyPostsFromDB = (_a) => __awaiter(void 0, [_a], void 0, function* ({ email, sortValue, searchValue, filterValue, page, limit, }) {
+    const filter = { userEmail: email };
+    if (searchValue) {
+        filter.$or = [
+            { category: { $regex: searchValue, $options: "i" } },
+            { description: { $regex: searchValue, $options: "i" } },
+        ];
+    }
+    else if (filterValue) {
+        filter.category = filterValue;
+    }
+    let sort = {};
+    if (sortValue === "-createdAt") {
+        sort = { createdAt: -1 };
+    }
+    else if (sortValue === "createdAt") {
+        sort = { createdAt: 1 };
+    }
+    let skip = 0;
+    let initialPage = Number(page) || 1;
+    const limitValue = Number(limit) || 10;
+    if (page) {
+        skip = (initialPage - 1) * limitValue;
+    }
+    const result = yield post_model_1.Post.find(filter)
+        .sort(sort)
+        .skip(skip)
+        .limit(limitValue)
+        .populate("userId");
+    if (sortValue === "upvote") {
+        result.sort((a, b) => b.upvote.length - a.upvote.length);
+    }
+    else if (sortValue === "downvote") {
+        result.sort((a, b) => b.downvote.length - a.downvote.length);
+    }
     return result;
 });
 const getPostFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {

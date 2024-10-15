@@ -5,8 +5,51 @@ const createPostIntoDB = async (payload: Record<string, unknown>) => {
   return result;
 };
 
-const getMyPostsFromDB = async (email: string) => {
-  const result = await Post.find({ userEmail: email }).populate("userId");
+const getMyPostsFromDB = async ({
+  email,
+  sortValue,
+  searchValue,
+  filterValue,
+  page,
+  limit,
+}: Record<string, unknown>) => {
+  const filter: any = { userEmail: email };
+
+  if (searchValue) {
+    filter.$or = [
+      { category: { $regex: searchValue, $options: "i" } },
+      { description: { $regex: searchValue, $options: "i" } },
+    ];
+  } else if (filterValue) {
+    filter.category = filterValue;
+  }
+
+  let sort: any = {};
+  if (sortValue === "-createdAt") {
+    sort = { createdAt: -1 };
+  } else if (sortValue === "createdAt") {
+    sort = { createdAt: 1 };
+  }
+
+  let skip = 0;
+  let initialPage = Number(page) || 1;
+  const limitValue = Number(limit) || 10;
+
+  if (page) {
+    skip = (initialPage - 1) * limitValue;
+  }
+
+  const result = await Post.find(filter)
+    .sort(sort)
+    .skip(skip)
+    .limit(limitValue)
+    .populate("userId");
+
+  if (sortValue === "upvote") {
+    result.sort((a, b) => b.upvote.length - a.upvote.length);
+  } else if (sortValue === "downvote") {
+    result.sort((a, b) => b.downvote.length - a.downvote.length);
+  }
   return result;
 };
 const getPostFromDB = async (id: string) => {

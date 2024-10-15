@@ -59,6 +59,12 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     if (!user) {
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, "This user is not found !");
     }
+    if (user.isBlocked) {
+        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "This user is blocked !");
+    }
+    if (user.isDeleted) {
+        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "This user is deleted !");
+    }
     const passwordMatch = yield (0, auth_utils_1.isPasswordMatched)(payload === null || payload === void 0 ? void 0 : payload.password, user === null || user === void 0 ? void 0 : user.password);
     if (!passwordMatch) {
         throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "Password not matched");

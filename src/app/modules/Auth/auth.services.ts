@@ -53,6 +53,13 @@ const loginUser = async (payload: TLoginUser) => {
     throw new AppError(httpStatus.NOT_FOUND, "This user is not found !");
   }
 
+  if (user.isBlocked) {
+    throw new AppError(httpStatus.BAD_REQUEST, "This user is blocked !");
+  }
+  if (user.isDeleted) {
+    throw new AppError(httpStatus.BAD_REQUEST, "This user is deleted !");
+  }
+
   const passwordMatch = await isPasswordMatched(
     payload?.password,
     user?.password

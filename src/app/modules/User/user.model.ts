@@ -28,6 +28,7 @@ const userSchema = new Schema<TUser>(
       subscriptionDate: { type: Date, default: null },
       expirationDate: { type: Date, default: null },
     },
+    isBlocked: { type: Boolean, default: false },
     isDeleted: { type: Boolean, default: false },
   },
   {

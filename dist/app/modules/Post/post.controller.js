@@ -28,7 +28,16 @@ exports.createPost = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
 }));
 const getMyPosts = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.params;
-    const result = yield post_service_1.PostServices.getMyPostsFromDB(email);
+    const { sortValue, searchValue, filterValue, page, limit } = req.query;
+    console.log(req.query);
+    const result = yield post_service_1.PostServices.getMyPostsFromDB({
+        email,
+        sortValue,
+        searchValue,
+        filterValue,
+        page,
+        limit,
+    });
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,

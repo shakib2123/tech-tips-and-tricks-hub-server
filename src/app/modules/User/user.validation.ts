@@ -33,6 +33,11 @@ const updateUserInfoSchema = z.object({
         invalid_type_error: "Website must be a string",
       })
       .optional(),
+    role: z
+      .string({
+        invalid_type_error: "Role must be a string",
+      })
+      .optional(),
   }),
 });
 

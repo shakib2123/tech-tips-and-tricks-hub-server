@@ -11,6 +11,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserServices = void 0;
 const user_model_1 = require("./user.model");
+const getUsersFromDB = (role) => __awaiter(void 0, void 0, void 0, function* () {
+    const filter = {
+        isDeleted: false,
+        role: "",
+    };
+    if (role) {
+        filter.role = role;
+    }
+    const result = yield user_model_1.User.find(filter);
+    return result;
+});
 const getCurrentUserFromDB = (email) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_model_1.User.findOne({ email });
     return result;
@@ -31,8 +42,14 @@ const followingActivity = (email, tab) => __awaiter(void 0, void 0, void 0, func
     const users = yield user_model_1.User.find({ _id: { $in: usersId } });
     return users;
 });
+const deleteUserFromDB = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield user_model_1.User.findOneAndUpdate({ _id: userId }, { isDeleted: true });
+    return result;
+});
 exports.UserServices = {
     getCurrentUserFromDB,
     updateUserInfoIntoDB,
     followingActivity,
+    getUsersFromDB,
+    deleteUserFromDB,
 };

@@ -35,6 +35,11 @@ const updateUserInfoSchema = zod_1.z.object({
             invalid_type_error: "Website must be a string",
         })
             .optional(),
+        role: zod_1.z
+            .string({
+            invalid_type_error: "Role must be a string",
+        })
+            .optional(),
     }),
 });
 exports.UserValidations = {
