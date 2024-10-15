@@ -17,6 +17,25 @@ const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const http_status_1 = __importDefault(require("http-status"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const payment_service_1 = require("./payment.service");
+const getPayments = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield payment_service_1.PaymentServices.getPaymentsFromDB();
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: "Payments retrieved successfully",
+        data: result,
+    });
+}));
+const getMyPayments = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.params;
+    const result = yield payment_service_1.PaymentServices.getMyPaymentsFromDB(email);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: "Payments retrieved successfully",
+        data: result,
+    });
+}));
 const createPaymentCheckoutSession = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield payment_service_1.PaymentServices.stripePaymentIntoDB(req.body);
     (0, sendResponse_1.default)(res, {
@@ -28,4 +47,6 @@ const createPaymentCheckoutSession = (0, catchAsync_1.default)((req, res) => __a
 }));
 exports.PaymentController = {
     createPaymentCheckoutSession,
+    getPayments,
+    getMyPayments,
 };

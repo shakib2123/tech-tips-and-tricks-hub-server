@@ -20,6 +20,14 @@ const stripe_1 = __importDefault(require("stripe"));
 const payment_model_1 = require("./payment.model");
 const http_status_1 = __importDefault(require("http-status"));
 const stripe = new stripe_1.default(config_1.default.stripe_secret_key);
+const getPaymentsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
+    const payments = yield payment_model_1.Payment.find();
+    return payments;
+});
+const getMyPaymentsFromDB = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    const payments = yield payment_model_1.Payment.find({ email: email });
+    return payments;
+});
 const stripePaymentIntoDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
     const lineItems = [
         {
@@ -66,4 +74,8 @@ const stripePaymentIntoDB = (data) => __awaiter(void 0, void 0, void 0, function
         throw new AppError_1.default(http_status_1.default.INTERNAL_SERVER_ERROR, error.message || "Payment processing failed");
     }
 });
-exports.PaymentServices = { stripePaymentIntoDB };
+exports.PaymentServices = {
+    stripePaymentIntoDB,
+    getPaymentsFromDB,
+    getMyPaymentsFromDB,
+};

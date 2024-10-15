@@ -8,6 +8,15 @@ import httpStatus from "http-status";
 
 const stripe = new Stripe(config.stripe_secret_key!);
 
+const getPaymentsFromDB = async () => {
+  const payments = await Payment.find();
+  return payments;
+};
+const getMyPaymentsFromDB = async (email: string) => {
+  const payments = await Payment.find({ email: email });
+  return payments;
+};
+
 const stripePaymentIntoDB = async (data: TPayment) => {
   const lineItems = [
     {
@@ -69,4 +78,8 @@ const stripePaymentIntoDB = async (data: TPayment) => {
   }
 };
 
-export const PaymentServices = { stripePaymentIntoDB };
+export const PaymentServices = {
+  stripePaymentIntoDB,
+  getPaymentsFromDB,
+  getMyPaymentsFromDB,
+};
