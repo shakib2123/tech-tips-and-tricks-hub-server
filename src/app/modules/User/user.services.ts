@@ -1,12 +1,11 @@
 import { User } from "./user.model";
 
 const getUsersFromDB = async (role: string) => {
-  const filter = {
+  const filter: any = {
     isDeleted: false,
-    role: "",
   };
 
-  if (role) {
+  if (role && role !== undefined) {
     filter.role = role;
   }
 

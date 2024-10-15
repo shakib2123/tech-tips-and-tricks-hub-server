@@ -22,6 +22,11 @@ const registerUserValidationSchema = z.object({
       required_error: "Password is required",
       invalid_type_error: "Password must be a string",
     }),
+    role: z
+      .string({
+        invalid_type_error: "Password must be a string",
+      })
+      .optional(),
   }),
 });
 const loginUserValidationSchema = z.object({

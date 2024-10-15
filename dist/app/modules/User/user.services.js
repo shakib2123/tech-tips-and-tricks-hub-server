@@ -14,9 +14,8 @@ const user_model_1 = require("./user.model");
 const getUsersFromDB = (role) => __awaiter(void 0, void 0, void 0, function* () {
     const filter = {
         isDeleted: false,
-        role: "",
     };
-    if (role) {
+    if (role && role !== undefined) {
         filter.role = role;
     }
     const result = yield user_model_1.User.find(filter);

@@ -53,9 +53,10 @@ const registerUser = (payload) => __awaiter(void 0, void 0, void 0, function* ()
     return { user: userData, accessToken, refreshToken };
 });
 const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_model_1.User.findOne({
+    const lastLogin = new Date(Date.now()).toISOString();
+    const user = yield user_model_1.User.findOneAndUpdate({
         email: payload.email,
-    }).select("+password");
+    }, { lastLogin }, { new: true }).select("+password");
     if (!user) {
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, "This user is not found !");
     }

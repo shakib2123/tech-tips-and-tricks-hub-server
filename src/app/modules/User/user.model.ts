@@ -29,6 +29,7 @@ const userSchema = new Schema<TUser>(
       expirationDate: { type: Date, default: null },
     },
     isBlocked: { type: Boolean, default: false },
+    lastLogin: { type: String, default: new Date(Date.now()).toISOString() },
     isDeleted: { type: Boolean, default: false },
   },
   {

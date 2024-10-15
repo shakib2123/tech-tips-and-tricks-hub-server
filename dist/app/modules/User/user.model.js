@@ -40,6 +40,7 @@ const userSchema = new mongoose_1.Schema({
         expirationDate: { type: Date, default: null },
     },
     isBlocked: { type: Boolean, default: false },
+    lastLogin: { type: String, default: new Date(Date.now()).toISOString() },
     isDeleted: { type: Boolean, default: false },
 }, {
     timestamps: true,

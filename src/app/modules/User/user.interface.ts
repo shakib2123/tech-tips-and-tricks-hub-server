@@ -19,6 +19,7 @@ export type TUser = {
     subscriptionDate: Date;
     expirationDate: Date;
   };
+  lastLogin: string;
   isBlocked: boolean;
   isDeleted: boolean;
 };
