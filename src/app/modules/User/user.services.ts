@@ -13,7 +13,24 @@ const updateUserInfoIntoDB = async (
   return result;
 };
 
+const followingActivity = async (email: string, tab: string) => {
+  let usersId;
+
+  const user = await User.findOne({ email });
+
+  if (tab === "following") {
+    usersId = user?.following;
+  } else if (tab === "followers") {
+    usersId = user?.followers;
+  }
+
+  const users = await User.find({ _id: { $in: usersId } });
+
+  return users;
+};
+
 export const UserServices = {
   getCurrentUserFromDB,
   updateUserInfoIntoDB,
+  followingActivity,
 };

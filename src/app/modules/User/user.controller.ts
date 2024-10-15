@@ -51,7 +51,25 @@ const updateUserInfo = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const followingActivity = catchAsync(async (req: Request, res: Response) => {
+  const { email, tab } = req.query;
+
+  console.log(email, tab);
+
+  const result = await UserServices.followingActivity(
+    email as string,
+    tab as string
+  );
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Users retrieved successfully",
+    data: result,
+  });
+});
+
 export const UserController = {
   getCurrentUser,
   updateUserInfo,
+  followingActivity,
 };

@@ -12,6 +12,11 @@ router.get(
   auth(USER_ROLES.USER, USER_ROLES.ADMIN),
   UserController.getCurrentUser
 );
+router.get(
+  "/following-activity",
+  auth(USER_ROLES.USER, USER_ROLES.ADMIN),
+  UserController.followingActivity
+);
 
 router.patch(
   "/:email",
