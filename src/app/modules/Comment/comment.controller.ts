@@ -14,7 +14,12 @@ const createComment = catchAsync(async (req: Request, res: Response) => {
   });
 });
 const getComments = catchAsync(async (req: Request, res: Response) => {
-  const result = await CommentServices.getCommentsFromDB();
+  const { postId, author } = req.query;
+  console.log(postId, author);
+  const result = await CommentServices.getCommentsFromDB(
+    postId as string | undefined,
+    author as string | undefined
+  );
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,

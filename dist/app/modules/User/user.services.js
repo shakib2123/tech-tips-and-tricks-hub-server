@@ -19,7 +19,20 @@ const updateUserInfoIntoDB = (email, payload) => __awaiter(void 0, void 0, void 
     const result = yield user_model_1.User.findOneAndUpdate({ email }, payload);
     return result;
 });
+const followingActivity = (email, tab) => __awaiter(void 0, void 0, void 0, function* () {
+    let usersId;
+    const user = yield user_model_1.User.findOne({ email });
+    if (tab === "following") {
+        usersId = user === null || user === void 0 ? void 0 : user.following;
+    }
+    else if (tab === "followers") {
+        usersId = user === null || user === void 0 ? void 0 : user.followers;
+    }
+    const users = yield user_model_1.User.find({ _id: { $in: usersId } });
+    return users;
+});
 exports.UserServices = {
     getCurrentUserFromDB,
     updateUserInfoIntoDB,
+    followingActivity,
 };

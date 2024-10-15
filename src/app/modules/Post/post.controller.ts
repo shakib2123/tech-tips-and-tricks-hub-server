@@ -16,6 +16,7 @@ export const createPost = catchAsync(async (req: Request, res: Response) => {
 
 const getMyPosts = catchAsync(async (req: Request, res: Response) => {
   const { email } = req.params;
+
   const result = await PostServices.getMyPostsFromDB(email);
   sendResponse(res, {
     success: true,

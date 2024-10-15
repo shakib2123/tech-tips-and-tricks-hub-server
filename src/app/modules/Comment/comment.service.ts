@@ -7,8 +7,26 @@ const createCommentIntoDB = async (payload: TComment) => {
   return result;
 };
 
-const getCommentsFromDB = async () => {
-  const result = await Comment.find().populate("userId");
+const getCommentsFromDB = async (
+  postId: string | undefined,
+  author: string | undefined
+) => {
+  let filter = {};
+  if (postId) {
+    filter = {
+      postId: postId,
+    };
+  }
+  if (author) {
+    filter = {
+      author: author,
+    };
+  }
+
+  console.log(filter);
+
+  const result = await Comment.find(filter).populate("userId");
+
   return result;
 };
 

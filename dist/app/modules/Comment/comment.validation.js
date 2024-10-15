@@ -12,6 +12,10 @@ const commentValidationSchema = zod_1.z.object({
             required_error: "Post Id is required",
             invalid_type_error: "Post Id must be a string",
         }),
+        author: zod_1.z.string({
+            required_error: "Author is required",
+            invalid_type_error: "Author must be a string",
+        }),
         comment: zod_1.z.string({
             required_error: "Comment is required",
             invalid_type_error: "Comment must be a string",

@@ -15,8 +15,20 @@ const createCommentIntoDB = (payload) => __awaiter(void 0, void 0, void 0, funct
     const result = yield comment_model_1.Comment.create(payload);
     return result;
 });
-const getCommentsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield comment_model_1.Comment.find().populate("userId");
+const getCommentsFromDB = (postId, author) => __awaiter(void 0, void 0, void 0, function* () {
+    let filter = {};
+    if (postId) {
+        filter = {
+            postId: postId,
+        };
+    }
+    if (author) {
+        filter = {
+            author: author,
+        };
+    }
+    console.log(filter);
+    const result = yield comment_model_1.Comment.find(filter).populate("userId");
     return result;
 });
 const updateCommentFromDB = (_a) => __awaiter(void 0, [_a], void 0, function* ({ id, comment, }) {
