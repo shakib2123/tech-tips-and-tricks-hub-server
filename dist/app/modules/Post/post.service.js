@@ -58,7 +58,6 @@ const getPostFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const getAllPostsFromDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const { sortValue, searchValue, filterValue, page, limit } = payload;
-    console.log(payload);
     const filter = {};
     if (searchValue) {
         filter.$or = [

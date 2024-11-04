@@ -28,7 +28,6 @@ const createComment = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
 }));
 const getComments = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { postId, author } = req.query;
-    console.log(postId, author);
     const result = yield comment_service_1.CommentServices.getCommentsFromDB(postId, author);
     (0, sendResponse_1.default)(res, {
         success: true,

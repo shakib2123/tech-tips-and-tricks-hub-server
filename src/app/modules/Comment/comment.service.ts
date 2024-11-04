@@ -11,19 +11,13 @@ const getCommentsFromDB = async (
   postId: string | undefined,
   author: string | undefined
 ) => {
-  let filter = {};
+  let filter: Record<string, string | undefined> = {};
   if (postId) {
-    filter = {
-      postId: postId,
-    };
+    filter.postId = postId;
   }
-  if (author) {
-    filter = {
-      author: author,
-    };
+  if (author && author !== "undefined") {
+    filter.author = author;
   }
-
-  console.log(filter);
 
   const result = await Comment.find(filter).populate("userId");
 
@@ -42,7 +36,7 @@ const updateCommentFromDB = async ({
     { comment },
     { new: true }
   );
-  console.log(result);
+
   return result;
 };
 

@@ -17,7 +17,6 @@ export const createPost = catchAsync(async (req: Request, res: Response) => {
 const getMyPosts = catchAsync(async (req: Request, res: Response) => {
   const { email } = req.params;
   const { sortValue, searchValue, filterValue, page, limit } = req.query;
-  console.log(req.query);
 
   const result = await PostServices.getMyPostsFromDB({
     email,
@@ -47,7 +46,7 @@ const getPost = catchAsync(async (req: Request, res: Response) => {
 });
 const getAllPosts = catchAsync(async (req: Request, res: Response) => {
   const { sortValue, searchValue, filterValue, page, limit } = req.query;
-  console.log(req.query);
+
   const result = await PostServices.getAllPostsFromDB({
     sortValue,
     searchValue,
@@ -77,7 +76,6 @@ const updateVote = catchAsync(async (req: Request, res: Response) => {
 const updatePost = catchAsync(async (req: Request, res: Response) => {
   const { postId } = req.params;
   const updatedData = req.body;
-  console.log(updatedData);
 
   const result = await PostServices.updatePostIntoDB({
     postId,

@@ -58,7 +58,7 @@ const getPostFromDB = async (id: string) => {
 };
 const getAllPostsFromDB = async (payload: Record<string, unknown>) => {
   const { sortValue, searchValue, filterValue, page, limit } = payload;
-  console.log(payload);
+
   const filter: any = {};
 
   if (searchValue) {

@@ -18,22 +18,16 @@ const createCommentIntoDB = (payload) => __awaiter(void 0, void 0, void 0, funct
 const getCommentsFromDB = (postId, author) => __awaiter(void 0, void 0, void 0, function* () {
     let filter = {};
     if (postId) {
-        filter = {
-            postId: postId,
-        };
+        filter.postId = postId;
     }
-    if (author) {
-        filter = {
-            author: author,
-        };
+    if (author && author !== "undefined") {
+        filter.author = author;
     }
-    console.log(filter);
     const result = yield comment_model_1.Comment.find(filter).populate("userId");
     return result;
 });
 const updateCommentFromDB = (_a) => __awaiter(void 0, [_a], void 0, function* ({ id, comment, }) {
     const result = yield comment_model_1.Comment.findByIdAndUpdate(id, { comment }, { new: true });
-    console.log(result);
     return result;
 });
 const deleteCommentFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
